@@ -13,7 +13,7 @@ if (!publishableKey) {
 export default function RootLayout() {
   return (
     <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
-      <SafeAreaView className="flex-1 ">
+      <SafeAreaView className="flex-1">
         <Stack screenOptions={{ headerShown: false }} />
       </SafeAreaView>
     </ClerkProvider>
