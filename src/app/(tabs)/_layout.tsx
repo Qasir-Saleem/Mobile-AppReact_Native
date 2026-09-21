@@ -14,7 +14,7 @@ function AndroidTabs() {
         options={{
           title: "Home",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" color={color} size={size} />
+            <Ionicons name="home" color={color as string} size={size} />
           ),
         }}
       />
@@ -24,7 +24,7 @@ function AndroidTabs() {
         options={{
           title: "Search",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="search" color={color} size={size} />
+            <Ionicons name="search" color={color as string} size={size} />
           ),
         }}
       />
@@ -35,7 +35,7 @@ function AndroidTabs() {
           title: "Add",
           href: isAdmin ? undefined : null,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="add-circle" color={color} size={size} />
+            <Ionicons name="add-circle" color={color as string} size={size} />
           ),
         }}
       />
@@ -45,7 +45,7 @@ function AndroidTabs() {
         options={{
           title: "Saved",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="heart" color={color} size={size} />
+            <Ionicons name="heart" color={color as string} size={size} />
           ),
         }}
       />
@@ -55,7 +55,7 @@ function AndroidTabs() {
         options={{
           title: "Profile",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person" color={color} size={size} />
+            <Ionicons name="person" color={color as string} size={size} />
           ),
         }}
       />

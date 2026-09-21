@@ -10,7 +10,7 @@ export interface Property {
   address: string;
   city: string;
   latitude: number;
-  longitude: string;
+  longitude: number;
   images: string[];
   is_featured: boolean;
   is_sold: boolean;

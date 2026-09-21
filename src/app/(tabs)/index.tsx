@@ -12,6 +12,8 @@ import {
 import { Property } from "../../../types";
 import { useSupabase } from "../../../hooks/useSupabase";
 import { Ionicons } from "@expo/vector-icons";
+import FeatureCard from "@/components/FeatureCard";
+import PropertyCard from "@/components/PropertyCard";
 
 export default function index() {
   const { user } = useUser();
@@ -22,22 +24,25 @@ export default function index() {
   const [recommended, setRecommended] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
 
-  console.log(featured, recommended, "dataaa");
-
   const FetchProperties = async () => {
     setLoading(true);
 
-    const { data: featuredData } = await supabase
+    const { data: featuredData, error: featuredError } = await supabase
       .from("properties")
       .select("*")
       .eq("is_featured", true)
       .order("created_at", { ascending: false });
 
-    const { data: recommendedData } = await supabase
+    if (featuredError) console.warn("featured error:", featuredError.message);
+
+    const { data: recommendedData, error: recommendedError } = await supabase
       .from("properties")
       .select("*")
       .eq("is_featured", false)
       .order("created_at", { ascending: false });
+
+    if (recommendedError)
+      console.warn("recommended error:", recommendedError.message);
 
     setFeatured(featuredData ?? []);
     setRecommended(recommendedData ?? []);
@@ -76,7 +81,7 @@ export default function index() {
             {/* search bar */}
             <Pressable
               onPress={() => router.push("/(tabs)/search")}
-              className="[mx-5 mb-6 flex-row items-center bg-white rounded-2xl px-4 py-3 gap-3"
+              className="mb-6 flex-row items-center bg-white rounded-2xl px-4 py-3 gap-3"
               style={{
                 shadowColor: "#000",
                 shadowOffset: { width: 0, height: 1 },
@@ -87,7 +92,7 @@ export default function index() {
             >
               <Ionicons name="search-outline" size={18} color={"#9CA3AF"} />
               <Text className="text-gray text-sm flex-1">
-                searc properties, cities...
+                search properties, cities...
               </Text>
 
               <Pressable
@@ -111,18 +116,21 @@ export default function index() {
                 <FlatList
                   data={featured}
                   keyExtractor={(item) => item.id}
-                  renderItem={({ item }) => <Text>{item.title} </Text>}
+                  renderItem={({ item }) => <FeatureCard property={item} />}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={{ paddingHorizontal: 1 }}
                 />
               )}
             </View>
 
             {/* Featured section */}
-            <Text className="text-lg font-bold  mb-4">Recommended</Text>
+            <Text className="text-lg font-bold py-3 ">Recommended</Text>
           </View>
         }
         renderItem={({ item }) => (
           <View className="">
-            <Text>{item.title} </Text>
+            <PropertyCard property={item} />
           </View>
         )}
       />
