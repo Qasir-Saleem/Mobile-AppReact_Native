@@ -38,10 +38,7 @@ export default function FeatureCard({ property }: { property: Property }) {
       )}
 
       <View className="p-4">
-        <Text
-          className="text-base font-bold text-gray mb-1"
-          numberOfLines={1}
-        >
+        <Text className="text-base font-bold text-gray mb-1" numberOfLines={1}>
           {property.title}
         </Text>
 
